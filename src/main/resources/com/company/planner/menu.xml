@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="application" title="msg://com.company.planner/menu.application.title" opened="true">
+        <item view="plan_User.list" title="msg://com.company.planner.view.user/UserListView.title"/>
+        <item view="plan_Task.list" title="msg://com.company.planner.view.task/taskListView.title"/>
+        <item view="plan_TaskCategory.list"
+              title="msg://com.company.planner.view.taskcategory/taskCategoryListView.title"/>
+        <item view="plan_TaskSchedule.list"
+              title="msg://com.company.planner.view.taskschedule/taskScheduleListView.title"/>
+        <item view="plan_DayPlan" title="msg://com.company.planner.view.dayplan/dayPlan.title"/>
+    </menu>
+
+</menu-config>

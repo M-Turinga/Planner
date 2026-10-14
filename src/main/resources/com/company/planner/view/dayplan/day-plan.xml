@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://dayPlan.title">
+    <data>
+        <collection id="taskSchedulesDc" class="com.company.planner.entity.TaskSchedule">
+            <fetchPlan extends="_base">
+                <property name="task" fetchPlan="_instance_name">
+                    <property name="description"/>
+                    <property name="deadline"/>
+                    <property name="status"/>
+                    <property name="category" fetchPlan="_base"/>
+                </property>
+            </fetchPlan>
+            <loader id="taskSchedulesDl">
+                <query>
+                    <![CDATA[
+            select e from plan_TaskSchedule e
+            where e.planDate = :selectedDate
+              and (:category is null or e.task.category = :category)
+              and (:status is null or e.task.status = :status)
+            order by e.orderNum, e.id
+        ]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+        <hbox>
+            <button id="addTaskBtn" icon="vaadin:plus" text="Add task"/>
+            <button id="prevDayBtn" icon="lumo:chevron-left" text="Previous"/>
+            <datePicker id="currentDateField" datatype="localDate"/>
+            <button id="nextDayBtn" icon="lumo:chevron-right" text="Next"/>
+            <button id="todayBtn" text="Today"/>
+            <comboBox id="categoryFilter" clearButtonVisible="true" placeholder="Category"/>
+            <comboBox id="statusFilter" clearButtonVisible="true" placeholder="Status"/>
+
+        </hbox>
+        <dataGrid id="taskSchedulesDataGrid"
+                  dataContainer="taskSchedulesDc"
+                  width="100%"
+                  minWidth="100px">
+            <actions>
+                <action id="removeFromSchedule" text="Remove from schedule" icon="vaadin:trash"/>
+            </actions>
+            <columns>
+                <column property="task"/>
+                <column key="descriptionColumn" header="Description"/>
+                <column property="task.deadline" header="Deadline"/>
+                <column key="statusColumn" property="task.status" header="Status"/>
+                <column property="task.category" header="Category"/>
+            </columns>
+        </dataGrid>
+
+    </layout>
+</view>
